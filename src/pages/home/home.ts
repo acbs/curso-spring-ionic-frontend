@@ -15,4 +15,9 @@ export class HomePage {
 
   }
 
+  login() {
+    // Chamando outra página, o push ele vai empilhar uma página na outra (Colocando o btn voltar)
+    // setRoot chama outra tela sem empilhar
+    this.navCtrl.setRoot('CategoriasPage');
+  }
 }
