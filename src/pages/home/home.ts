@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage } from 'ionic-angular';
+import { MenuController } from 'ionic-angular/components/app/menu-controller';
 
 // Informa q essa clase é uma página e poderá ser referenciada pelo nome entre aspas
 // Tornando ela mais flexível para trabalhar no modo Lazy loading
@@ -11,8 +12,18 @@ import { NavController, IonicPage } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public menu: MenuController) {
 
+  }
+
+  // https://ionicframework.com/docs/api/navigation/NavController/
+  // Quando fór entrar na página (home), irá desabilitar o menu
+  ionViewWillEnter() {
+    this.menu.swipeEnable(false);
+  }
+  // Quando sair da página (home), irá habilitar o menu
+  ionViewDidLeave() {
+    this.menu.swipeEnable(true);
   }
 
   login() {
