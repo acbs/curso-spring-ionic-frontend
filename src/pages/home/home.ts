@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage } from 'ionic-angular';
 import { MenuController } from 'ionic-angular/components/app/menu-controller';
-import { CredenciasDTO } from '../../models/credencias.dto';
+import { CredenciaisDTO } from '../../models/credenciais.dto';
+import { AuthService } from '../../services/auth.service';
 
 // Informa q essa clase é uma página e poderá ser referenciada pelo nome entre aspas
 // Tornando ela mais flexível para trabalhar no modo Lazy loading
@@ -13,12 +14,15 @@ import { CredenciasDTO } from '../../models/credencias.dto';
 })
 export class HomePage {
 
-  creds: CredenciasDTO = {
+  creds: CredenciaisDTO = {
     email: "",
     senha: ""
   }
 
-  constructor(public navCtrl: NavController, public menu: MenuController) {
+  constructor(
+    public navCtrl: NavController,
+    public menu: MenuController,
+    public auth: AuthService) {
 
   }
 
@@ -35,7 +39,11 @@ export class HomePage {
   login() {
     // Chamando outra página, o push ele vai empilhar uma página na outra (Colocando o btn voltar)
     // setRoot chama outra tela sem empilhar
-    console.log(this.creds);
-    this.navCtrl.setRoot('CategoriasPage');
-  }
+    this.auth.authenticate(this.creds)
+      .subscribe(response => { // Se for tudo ok, pega o token
+        console.log(response.headers.get('Authorization'));
+        this.navCtrl.setRoot('CategoriasPage');
+      }),
+      error => {};
+    }
 }
