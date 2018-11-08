@@ -34,9 +34,7 @@ export class CategoriasPage {
       .subscribe(response => { // subscribe é o callback
         this.itens = response;
       },
-      error => {
-        console.log(error);
-      });
+      error => {});
   }
 
 }
