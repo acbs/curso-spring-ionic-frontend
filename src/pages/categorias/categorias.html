@@ -8,5 +8,15 @@
 </ion-header>
 
 <ion-content padding>
-<p>Página de Categorias</p>
+  <ion-list>
+    <!-- *ngFor é uma diretiva do angular, ela é capaz de ler uma coleção do controlador
+                e repetir os elementos da coleção onde ela está.
+          *ngFor="let item of itens" esse comando irá percorrer a coleção de itens definida no controlador -->
+    <button ion-item *ngFor="let item of itens">
+      <ion-thumbnail item-start>
+        <img src="{{bucketUrl}}/cat{{item.id}}.jpg">
+      </ion-thumbnail>
+      <h2>{{ item.nome }}</h2> <!-- Interpolação, vai interpolar o conteúdo do html com do controlador -->
+    </button>
+  </ion-list>
 </ion-content>
