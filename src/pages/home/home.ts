@@ -41,7 +41,8 @@ export class HomePage {
     // setRoot chama outra tela sem empilhar
     this.auth.authenticate(this.creds)
       .subscribe(response => { // Se for tudo ok, pega o token
-        console.log(response.headers.get('Authorization'));
+        // Quando fizer o login, irá armazenar no localStorage
+        this.auth.successfulLogin(response.headers.get('Authorization'));
         this.navCtrl.setRoot('CategoriasPage');
       }),
       error => {};
