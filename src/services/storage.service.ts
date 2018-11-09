@@ -7,11 +7,11 @@ export class StorageService {
 
   getLocalUser() : LocalUser {
     // Pegando o valor no localStorage com a chave localUser
-    let user = localStorage.getItem(STORAGE_KEYS.localUser);
-    if (user == null) { // Se não existir no localStorage irá retorna nulo
+    let usr = localStorage.getItem(STORAGE_KEYS.localUser);
+    if (usr == null) { // Se não existir no localStorage irá retorna nulo
       return null;
     } else {
-      JSON.parse(user); // O localStorage armazena string, dai é preciso converter para json
+      return JSON.parse(usr); // O localStorage armazena string, dai é preciso converter para json
     }
   }
 
