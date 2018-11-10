@@ -28,15 +28,15 @@ export class ErrorInterceptor implements HttpInterceptor {
         switch(errorObj.status) {
 
           case 401:
-          this.handle401();
-          break;
+            this.handle401();
+            break;
 
           case 403:
-          this.handle403();
-          break;
+            this.handle403();
+            break;
 
           default:
-          this.handleDefaultEror(errorObj);
+            this.handleDefaultEror(errorObj);
         }
 
         return Observable.throw(errorObj); // Irá propagar o error para o controlador
