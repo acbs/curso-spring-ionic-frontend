@@ -26,6 +26,16 @@ export class AuthService {
       });
   }
 
+  refreshToken() {
+    return this.http.post(
+      `${API_CONFIG.baseURL}/auth/refresh_token`,
+        {}, // O token é incluído automaticamente na requisição pelo interceptor
+        {
+            observe: 'response',
+            responseType: 'text'
+        });
+  }
+
   successfulLogin(authorizationValue : string) {
     // Para remover o prefixo (Bearer) do token
     let tok = authorizationValue.substring(7);

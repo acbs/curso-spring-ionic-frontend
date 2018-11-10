@@ -36,6 +36,16 @@ export class HomePage {
     this.menu.swipeEnable(true);
   }
 
+  // Evento para o ciclo de vida, se o token ainda estiver válido, irá passar direto para tela de categorias
+  ionViewDidEnter() {
+    this.auth.refreshToken()
+      .subscribe(response => {
+        this.auth.successfulLogin(response.headers.get('Authorization'));
+        this.navCtrl.setRoot('CategoriasPage');
+      },
+      error => {});
+  }
+
   login() {
     // Chamando outra página, o push ele vai empilhar uma página na outra (Colocando o btn voltar)
     // setRoot chama outra tela sem empilhar
