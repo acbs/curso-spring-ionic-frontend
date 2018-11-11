@@ -11,9 +11,10 @@
   <ion-list>
     <!-- *ngFor é uma diretiva do angular, ela é capaz de ler uma coleção do controlador
                 e repetir os elementos da coleção onde ela está.
-          *ngFor="let item of itens" esse comando irá percorrer a coleção de itens definida no controlador -->
-    <button ion-item *ngFor="let item of itens">
-      <ion-thumbnail item-start>
+          *ngFor="let item of itens" esse comando irá percorrer a coleção de itens definida no controlador
+      (click)="showProdutos() - Para cada categoria, irá exibir os produtos quando clicado -->
+      <button ion-item *ngFor="let item of itens" (click)="showProdutos()">
+              <ion-thumbnail item-start>
         <img src="{{bucketUrl}}/cat{{item.id}}.jpg">
       </ion-thumbnail>
       <h2>{{ item.nome }}</h2> <!-- Interpolação, vai interpolar o conteúdo do html com do controlador -->
