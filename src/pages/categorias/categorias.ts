@@ -20,7 +20,7 @@ export class CategoriasPage {
 
   bucketUrl: string = API_CONFIG.bucketBaseUrl;
 
-  itens: CategoriaDTO[];
+  items: CategoriaDTO[];
 
   constructor(
     public navCtrl: NavController,
@@ -32,12 +32,13 @@ export class CategoriasPage {
 
     this.categoriaService.findAll()
       .subscribe(response => { // subscribe é o callback
-        this.itens = response;
+        this.items = response;
       },
       error => {});
   }
 
-  showProdutos() {
-    this.navCtrl.push('ProdutosPage'); // Empilhando a página de produtos
+  showProdutos(categoria_id : string) {
+    // Empilhando a página de produtos e passando como parametro categoria_id para página
+    this.navCtrl.push('ProdutosPage', {categoria_id: categoria_id});
   }
 }
