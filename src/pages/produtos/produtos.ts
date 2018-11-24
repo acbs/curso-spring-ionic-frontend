@@ -12,7 +12,8 @@ import { ProdutoService } from '../../services/domain/produto.service';
 
 export class ProdutosPage {
 
-  items : ProdutoDTO[];
+  items : ProdutoDTO[] = [];
+  page : number = 0;
 
   constructor(
     public navCtrl: NavController,
@@ -30,20 +31,28 @@ export class ProdutosPage {
     let categoria_id = this.navParams.get('categoria_id');
     // Exibindo o loading
     let loader = this.presentLoading();
-    this.produtoService.findByCategoria(categoria_id)
+    this.produtoService.findByCategoria(categoria_id, this.page, 10)
       .subscribe(response => {
-        this.items = response['content']; // Pegando apenas o atributo content, pois esse endpoint retorna com varios parametros de paginação
+
+        // start e end, para evitar que tente buscar novamente as imagens do produtos anteriores
+        let start = this.items.length;
+        // Pegando apenas o atributo content, pois esse endpoint retorna com varios parametros de paginação
+        this.items = this.items.concat(response['content']);
+        let end = this.items.length - 1;
+
         // Fechando o loading
         loader.dismiss();
-        this.loadImageUrls();
+        console.log(this.page);
+        console.log(this.items);
+        this.loadImageUrls(start, end);
       },
       error => {
         loader.dismiss();
       });
   }
 
-  loadImageUrls() {
-    for (var i=0; i<this.items.length; i++) {
+  loadImageUrls(start: number, end: number) {
+    for (var i=start; i<=end; i++) {
       let item = this.items[i];
       this.produtoService.getSmallImageFromBucket(item.id)
         .subscribe(response => {
@@ -66,9 +75,21 @@ export class ProdutosPage {
   }
 
   doRefresh(refresher) {
+    this.page = 0;
+    this.items = [];
     this.loadData();
+    // Irá desligar após 1 segundo
     setTimeout(() => {
       refresher.complete();
+    }, 1000);
+  }
+
+  doInfinite(infiniteScroll) {
+    this.page++;
+    this.loadData();
+    // Irá desligar após 1 segundo
+    setTimeout(() => {
+      infiniteScroll.complete();
     }, 1000);
   }
 }
