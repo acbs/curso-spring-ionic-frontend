@@ -10,8 +10,9 @@
 <ion-content padding>
   <ion-avatar>
     <!-- cliente?, se a variável não estiver valor não vai dar erro na página, quando ela estiver valor ai sim será renderizado o valor dela
-    class="circle" configurada no profile.scss -->
-    <img class="circle" [src]="cliente?.imageUrl || 'assets/imgs/avatar-blank.png'">
+    class="circle" configurada no profile.scss
+    <img class="circle" [src]="cliente?.imageUrl || 'assets/imgs/avatar-blank.png'"> -->
+  <img class="circle" [src]="profileImage">
   </ion-avatar>
   <h2 text-center>{{cliente?.nome}}</h2>
   <p text-center>{{cliente?.email}}</p>
